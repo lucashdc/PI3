@@ -296,64 +296,6 @@ $conn->close();
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="inicio.php">
-            <i class="fas fa-hospital-alt me-2"></i>
-            Sistema de Gestão Hospitalar
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" href="inicio.php">
-                        <i class="fas fa-home me-1"></i> Início
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-users me-1"></i> Pacientes
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="cad_pacientes.php">Cadastrar Pacientes</a></li>
-                        <li><a class="dropdown-item" href="lista_pacientes.php">Listar Pacientes</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-vials me-1"></i> Exames
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="cad_exame2.php">Cadastro de Exames</a></li>
-                        <li><a class="dropdown-item" href="listar_exames.php">Lista de Exames</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-clipboard-check me-1"></i> Regulação
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="exames_pacientes.php">Vincular Exames a Pacientes</a></li>
-                        <li><a class="dropdown-item" href="status_exames.php">Status de Exames Realizados</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="dashboard.php">
-                        <i class="fas fa-chart-line me-1"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">
-                        <i class="fas fa-sign-out-alt me-1"></i> Sair
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
 <div class="header-section">
     <div class="container">
         <h1>Sistema de Gestão Hospitalar</h1>
@@ -418,7 +360,7 @@ $conn->close();
                         <h3>Pacientes</h3>
                     </div>
                     <div class="menu-card-body">
-                        <a href="cad_pacientes.html" class="menu-link">
+                        <a href="cad_pacientes.php" class="menu-link">
                             <i class="fas fa-user-plus"></i>
                             Cadastrar Paciente
                         </a>
@@ -478,7 +420,7 @@ $conn->close();
                         <h3>Dashboard</h3>
                     </div>
                     <div class="menu-card-body">
-                        <a href="dashboard.php" class="menu-link">
+                        <a href="analise_dados.php" class="menu-link">
                             <i class="fas fa-chart-bar"></i>
                             Análise de Dados
                         </a>

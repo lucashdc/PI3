@@ -614,10 +614,14 @@ $conn->close();
                         <li><a class="dropdown-item" href="status_exames.php">Status de Exames Realizados</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="dashboard.php">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-chart-line me-1"></i> Dashboard
                     </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="dashboard.php">Relatórios</a></li>
+                        <li><a class="dropdown-item" href="analise_dados.php">Análise de Dados</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.html">
