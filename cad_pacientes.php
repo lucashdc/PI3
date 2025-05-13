@@ -1,0 +1,525 @@
+<?php
+require_once 'db_connection.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nome = $_POST['nome'];
+    $dataNasc = $_POST['dataNasc'];
+    $genero = $_POST['genero'];
+    $cpf = $_POST['cpf'];
+    $sus = $_POST['sus'];
+    $prontuario = $_POST['prontuario'];
+    $cidadeNasc = $_POST['cidadeNasc'];
+    $paisNasc = $_POST['paisNasc'];
+    $nomeMae = $_POST['nomeMae'];
+    $nomePai = $_POST['nomePai'];
+    $unidadeSaude = $_POST['unidadeSaude'];
+    $cep = $_POST['cep'];
+    $endereco = $_POST['endereco'];
+    $numero = $_POST['numero'];
+    $bairro = $_POST['bairro'];
+    $complemento = $_POST['complemento'];
+    $cidade = $_POST['cidade'];
+    $uf = $_POST['uf'];
+    $referencia = $_POST['referencia'];
+    $telefone = $_POST['telefone'];
+    $celular = $_POST['celular'];
+    $ufNasc = $_POST['ufNasc'];
+
+    $sql = "INSERT INTO PICadPacientes (nome, dataNasc, genero, cpf, sus, prontuario, cidadeNasc, paisNasc, nomeMae, nomePai, unidadeSaude, cep, endereco, numero, bairro, complemento, cidade, uf, referencia, telefone, celular, ufNasc) 
+    VALUES ('$nome', '$dataNasc', '$genero', '$cpf', '$sus', '$prontuario', '$cidadeNasc', '$paisNasc', '$nomeMae', '$nomePai', '$unidadeSaude', '$cep', '$endereco', '$numero', '$bairro', '$complemento', '$cidade', '$uf', '$referencia', '$telefone', '$celular', '$ufNasc')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo '<script>alert("Paciente Cadastrado com sucesso!"); window.location.href = "lista_pacientes.php";</script>';
+    } else {
+        echo "Erro ao cadastrar paciente: " . $conn->error;
+    }
+
+    $conn->close();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Pacientes - Sistema de Gestão Hospitalar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --bg-gradient: linear-gradient(135deg, #0d6efd 0%, #198754 100%);
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem 0;
+        }
+
+        .header-section {
+            background: var(--bg-gradient);
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            color: white;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-section h1 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .header-section p {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-container {
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .form-header {
+            background-color: #0d6efd;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-header i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .form-body {
+            padding: 1.5rem;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #0b5ed7;
+            border-color: #0b5ed7;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #5c636a;
+            border-color: #5c636a;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 1.5rem 0;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        .form-control, .form-select {
+            transition: all 0.3s ease;
+        }
+
+        .form-control:hover, .form-select:hover {
+            border-color: #0d6efd;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="inicio.php">
+            <i class="fas fa-hospital-alt me-2"></i>
+            Sistema de Gestão Hospitalar
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="inicio.php">
+                        <i class="fas fa-home me-1"></i> Início
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-users me-1"></i> Pacientes
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item active" href="cad_pacientes.php">Cadastrar Pacientes</a></li>
+                        <li><a class="dropdown-item" href="lista_pacientes.php">Listar Pacientes</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-vials me-1"></i> Exames
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="cad_exame2.php">Cadastro de Exames</a></li>
+                        <li><a class="dropdown-item" href="listar_exames.php">Lista de Exames</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-clipboard-check me-1"></i> Regulação
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="exames_pacientes.php">Vincular Exames a Pacientes</a></li>
+                        <li><a class="dropdown-item" href="status_exames.php">Status de Exames Realizados</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="dashboard.php">
+                        <i class="fas fa-chart-line me-1"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">
+                        <i class="fas fa-sign-out-alt me-1"></i> Sair
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="header-section">
+    <div class="container">
+        <h1>Cadastro de Pacientes</h1>
+        <p>Preencha o formulário abaixo com os dados completos do paciente</p>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="container">
+        <form method="post" action="">
+            <!-- Dados Pessoais -->
+            <div class="form-container">
+                <div class="form-header">
+                    <i class="fas fa-user-circle"></i> Dados Pessoais
+                </div>
+                <div class="form-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="nomeCompleto" class="form-label">Nome Completo</label>
+                            <input type="text" class="form-control" id="nomeCompleto" name="nome"
+                                   placeholder="Digite o nome completo do paciente" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+                            <input type="date" class="form-control" id="dataNascimento" name="dataNasc" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="sexo" class="form-label">Sexo</label>
+                            <select id="sexo" name="genero" class="form-select" required>
+                                <option value="" selected disabled>Escolha...</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Feminino</option>
+                                <option value="O">Outro</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="nomeMae" class="form-label">Nome da Mãe</label>
+                            <input type="text" class="form-control" id="nomeMae" name="nomeMae"
+                                   placeholder="Digite o nome da mãe">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="nomePai" class="form-label">Nome do Pai</label>
+                            <input type="text" class="form-control" id="nomePai" name="nomePai"
+                                   placeholder="Digite o nome do pai">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="cpf" class="form-label">CPF</label>
+                            <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="numSUS" class="form-label">Nº do SUS</label>
+                            <input type="text" class="form-control" id="numSUS" name="sus"
+                                   placeholder="Digite o número do SUS" maxlength="16">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="numProntuario" class="form-label">Nº de Prontuário</label>
+                            <input type="text" class="form-control" id="numProntuario" name="prontuario"
+                                   placeholder="Digite o número de prontuário" maxlength="6">
+                        </div>
+                        <div class="col-md-5">
+                            <label for="municipioNascimento" class="form-label">Município de Nascimento</label>
+                            <input type="text" class="form-control" id="municipioNascimento" name="cidadeNasc"
+                                   placeholder="Digite o município de nascimento">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="uf1" class="form-label">UF</label>
+                            <select id="uf1" name="ufNasc" class="form-select">
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AM">AM</option>
+                                <option value="AP">AP</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MG">MG</option>
+                                <option value="MS">MS</option>
+                                <option value="MT">MT</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="PR">PR</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="RS">RS</option>
+                                <option value="SC">SC</option>
+                                <option value="SE">SE</option>
+                                <option value="SP" selected>SP</option>
+                                <option value="TO">TO</option>
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <label for="paisNascimento" class="form-label">País de Nascimento</label>
+                            <input type="text" class="form-control" id="paisNascimento" name="paisNasc"
+                                   placeholder="Digite o país de nascimento" value="Brasil">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endereço e Contato -->
+            <div class="form-container">
+                <div class="form-header">
+                    <i class="fas fa-map-marker-alt"></i> Endereço e Contato
+                </div>
+                <div class="form-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="unidadeSaude" class="form-label">Unidade de Saúde</label>
+                            <input type="text" class="form-control" id="unidadeSaude" name="unidadeSaude"
+                                   placeholder="Digite a unidade de saúde">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="cep" class="form-label">CEP</label>
+                            <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="numeroCasa" class="form-label">Nº da Casa</label>
+                            <input type="text" class="form-control" id="numeroCasa" name="numero"
+                                   placeholder="Nº" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="rua" class="form-label">Rua</label>
+                            <input type="text" class="form-control" id="rua" name="endereco" placeholder="Digite a rua"
+                                   readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="bairro" class="form-label">Bairro</label>
+                            <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Digite o bairro"
+                                   readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="complemento" class="form-label">Complemento</label>
+                            <input type="text" class="form-control" id="complemento" name="complemento"
+                                   placeholder="Digite o complemento">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="cidade" class="form-label">Cidade</label>
+                            <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Digite a Cidade"
+                                   readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="uf2" class="form-label">UF</label>
+                            <select id="uf2" name="uf" class="form-select">
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AM">AM</option>
+                                <option value="AP">AP</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MG">MG</option>
+                                <option value="MS">MS</option>
+                                <option value="MT">MT</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="PR">PR</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="RS">RS</option>
+                                <option value="SC">SC</option>
+                                <option value="SE">SE</option>
+                                <option value="SP" selected>SP</option>
+                                <option value="TO">TO</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="referencia" class="form-label">Referência</label>
+                            <input type="text" class="form-control" id="referencia" name="referencia"
+                                   placeholder="Digite uma referência">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="telefone" class="form-label">Telefone</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                <input type="text" class="form-control" id="telefone" name="telefone"
+                                       placeholder="(00) 0000-0000">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="celular" class="form-label">Celular</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
+                                <input type="text" class="form-control" id="celular" name="celular"
+                                       placeholder="(00) 00000-0000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 justify-content-center mb-4">
+                <button type="submit" class="btn btn-primary btn-lg px-5">
+                    <i class="fas fa-save me-2"></i> Cadastrar
+                </button>
+                <button type="reset" class="btn btn-secondary btn-lg px-5">
+                    <i class="fas fa-undo me-2"></i> Limpar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p>&copy; <?php echo date('Y'); ?> Sistema de Gestão Hospitalar | Todos os direitos reservados</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $('#cpf').mask('000.000.000-00');
+        $('#numSUS').mask('000000000000000');
+        $('#numProntuario').mask('000000');
+        $('#cep').mask('00000-000');
+        $('#telefone').mask('(00) 0000-0000');
+        $('#celular').mask('(00) 00000-0000');
+
+
+        $('#cep').on('blur', function () {
+            let cep = $(this).val().replace('-', '');
+            if (cep.length === 8) {
+                $.getJSON(`https://viacep.com.br/ws/${cep}/json/`, function (data) {
+                    if (!("erro" in data)) {
+                        $('#rua').val(data.logradouro);
+                        $('#bairro').val(data.bairro);
+                        $('#uf2').val(data.uf);
+                        $('#cidade').val(data.localidade);
+                    } else {
+                        alert("CEP não encontrado.");
+                    }
+                }).fail(function () {
+                    alert("Erro ao consultar o CEP.");
+                });
+            } else if (cep.length > 0) {
+                alert("CEP inválido. Deve conter 8 dígitos.");
+            }
+        });
+
+
+        $('a[href^="#"]').on('click', function(event) {
+            var target = $(this.getAttribute('href'));
+            if( target.length ) {
+                event.preventDefault();
+                $('html, body').stop().animate({
+                    scrollTop: target.offset().top - 100
+                }, 800);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
