@@ -34,62 +34,138 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $conn->close();
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cadastro de Exames</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alteração de Exames - Sistema de Gestão Hospitalar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Estilos de layout */
-        body, html {
-            height: 100%;
-            margin: 0;
-            background-color: #f8f9fa;
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --bg-gradient: linear-gradient(135deg, #0d6efd 0%, #198754 100%);
         }
 
-        /* Estilo para centralizar o formulário */
-        .container {
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem 0;
+        }
+
+        .header-section {
+            background: var(--bg-gradient);
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            color: white;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-section h1 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .header-section p {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-container {
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .form-header {
+            background-color: #198754;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
         }
 
-        /* Estilo do card */
-        .box {
-            background-color: #fff;
-            padding: 30px;
-            width: 100%;
-            max-width: 600px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        .form-header i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
         }
 
-        /* Estilo para o título */
-        .box .title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #343a40;
-            margin-bottom: 20px;
-            text-align: center;
-            border-bottom: 2px solid #e9ecef;
-            padding-bottom: 10px;
+        .form-body {
+            padding: 1.5rem;
         }
 
-        /* Ajuste de margem e preenchimento do formulário */
-        .box form .form-label {
+        .form-label {
             font-weight: 500;
             color: #495057;
         }
 
-        /* Estilos para os botões */
-        .btn-primary {
-            width: 100%;
+        .form-control:focus {
+            border-color: #198754;
+            box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
         }
 
-        /* Nav Bar */
+        .btn-primary {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #0b5ed7;
+            border-color: #0b5ed7;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #5c636a;
+            border-color: #5c636a;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 1.5rem 0;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
         .navbar-dark .navbar-nav .nav-link {
             color: rgba(255, 255, 255, 0.8);
             font-weight: 500;
@@ -103,64 +179,122 @@ $conn->close();
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <div class="d-flex justify-content-between w-100">
-            <div class="navbar-brand"> Sistema</div>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarCenteredExample">
-                <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Pacientes
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="cad_pacientes.html">Cadastrar Pacientes</a></li>
-                            <li><a class="dropdown-item" href="lista_pacientes.php">Listar Pacientes</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Exames
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="cad_exame.html">Cadastro de Exames</a></li>
-                            <li><a class="dropdown-item" href="listar_exames.php">Lista de Exames</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Regulação
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="exames_pacientes.php">Vincular Exames a Pacientes</a></li>
-                            <li><a class="dropdown-item" href="status_exames.php">Status de Exames Relizados</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <button class="btn btn-outline-light" type="button">Sair</button>
-            </div>
+    <div class="container">
+        <a class="navbar-brand" href="inicio.php">
+            <i class="fas fa-hospital-alt me-2"></i>
+            Sistema de Gestão Hospitalar
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="inicio.php">
+                        <i class="fas fa-home me-1"></i> Início
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-users me-1"></i> Pacientes
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="cad_pacientes.php">Cadastrar Pacientes</a></li>
+                        <li><a class="dropdown-item" href="lista_pacientes.php">Listar Pacientes</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-vials me-1"></i> Exames
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="cad_exame2.php">Cadastro de Exames</a></li>
+                        <li><a class="dropdown-item active" href="listar_exames.php">Lista de Exames</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-clipboard-check me-1"></i> Regulação
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="exames_pacientes.php">Vincular Exames a Pacientes</a></li>
+                        <li><a class="dropdown-item" href="status_exames.php">Status de Exames Realizados</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-chart-line me-1"></i> Dashboard
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="dashboard.php">Relatórios</a></li>
+                        <li><a class="dropdown-item" href="analise_dados.php">Análise de Dados</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">
+                        <i class="fas fa-sign-out-alt me-1"></i> Sair
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
 
-<div class="container">
-    <div class="box">
-        <h1 class="title">Alteração de Exames</h1>
-        <form class="row g-3" action="" method="POST">
-            <div class="col-md-12">
-                <label for="exame" class="form-label">Nome do Exame</label>
-                <input type="text" class="form-control" id="exame" name="exame" value="<?php echo $exame['exame']; ?>" required>
-            </div>
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary">Salvar</button>
-            </div>
-        </form>
+<div class="header-section">
+    <div class="container">
+        <h1>Alteração de Exame</h1>
+        <p>Atualize as informações do exame no sistema</p>
     </div>
 </div>
+
+<div class="main-content">
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <i class="fas fa-vials"></i> Informações do Exame
+            </div>
+            <div class="form-body">
+                <form class="row g-3" action="" method="POST">
+                    <div class="col-12">
+                        <label for="exame" class="form-label">Nome do Exame</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-flask"></i></span>
+                            <input type="text" class="form-control" id="exame" name="exame" value="<?php echo htmlspecialchars($exame['exame']); ?>" required>
+                        </div>
+                        <div class="form-text">Insira o nome completo do exame conforme ele deve aparecer no sistema.</div>
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">
+                                <i class="fas fa-save me-2"></i> Atualizar
+                            </button>
+                            <a href="listar_exames.php" class="btn btn-secondary btn-lg px-5">
+                                <i class="fas fa-times me-2"></i> Cancelar
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="text-center mb-4">
+            <a href="listar_exames.php" class="btn btn-outline-primary">
+                <i class="fas fa-list me-2"></i> Voltar para Lista de Exames
+            </a>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p>&copy; <?php echo date('Y'); ?> Sistema de Gestão Hospitalar | Todos os direitos reservados</p>
+            </div>
+        </div>
+    </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
